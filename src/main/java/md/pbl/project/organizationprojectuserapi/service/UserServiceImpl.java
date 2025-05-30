@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -61,6 +62,16 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void delete(Long orgId, Long userId) throws PblCustomException {
         userRepo.delete(getEntity(orgId, userId));
+    }
+
+    @Override
+    public List<UserDto> getByUsername(String username) {
+        User userByUsernameOrId = userRepo.findUserByUsername(username);
+        if (userByUsernameOrId == null) {
+            return Collections.emptyList();
+        }
+        return Collections.singletonList(mapper.toDto(userByUsernameOrId));
+
     }
 
     private User getEntity(Long orgId, Long userId) throws PblCustomException {

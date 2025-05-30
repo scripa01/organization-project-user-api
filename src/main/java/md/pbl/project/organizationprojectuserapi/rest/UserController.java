@@ -43,4 +43,10 @@ public class UserController {
         service.delete(orgId, userId);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/findUserByUsername")
+    public ResponseEntity<List<UserDto>> findByUsername(@PathVariable Long orgId,
+                                                        @RequestParam("username") String username) throws PblCustomException {
+        return ResponseEntity.ok(service.getByUsername(username));
+    }
 }

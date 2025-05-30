@@ -1,6 +1,5 @@
 package md.pbl.project.organizationprojectuserapi.model.user;
 
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,6 +19,7 @@ public class UserDto {
     @Email
     private String email;
     private String fullName;
+    private Role role;
     private OffsetDateTime createdAt = OffsetDateTime.now();
 
 }
