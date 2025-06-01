@@ -1,0 +1,29 @@
+version: "3.8"
+services:
+  org-db:
+    image: postgres:15
+    container_name: org-db
+    environment:
+      POSTGRES_DB: organization_project_user
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456789
+    ports:
+      - "5434:5432"
+    volumes:
+      - org-db-data:/var/lib/postgresql/data
+
+  organization-project-user-api:
+    build:
+      context: ./organization-project-user-api
+    container_name: organization-project-user-api
+    depends_on:
+      - org-db
+    ports:
+      - "8083:8083"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://org-db:5432/organization_project_user
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 123456789
+
+volumes:
+  org-db-data:
