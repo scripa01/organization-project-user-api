@@ -13,8 +13,9 @@ services:
       - org-db-data:/var/lib/postgresql/data
 
   organization-project-user-api:
+    image: organization-project-user-api
     build:
-      context: ./organization-project-user-api
+      context: .
     container_name: organization-project-user-api
     depends_on:
       - org-db
