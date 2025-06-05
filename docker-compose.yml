@@ -11,6 +11,8 @@ services:
       - "5434:5432"
     volumes:
       - org-db-data:/var/lib/postgresql/data
+    networks:
+      - backend-net
 
   organization-project-user-api:
     image: organization-project-user-api
@@ -25,6 +27,12 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://org-db:5432/organization_project_user
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: 123456789
+    networks:
+      - backend-net
 
 volumes:
   org-db-data:
+
+networks:
+  backend-net:
+    external: true
